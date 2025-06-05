@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Adicionar Produto - ML Fashion</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: "Georgia", serif;
+      background-color: #fffaf5;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      color: #3a1f1a;
+    }
+
+    header {
+      background-color: #3a1f1a;
+      color: #fce7d2;
+      text-align: center;
+      padding: 2rem 1rem;
+    }
+
+    main {
+      flex: 1;
+      padding: 20px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    form {
+      background-color: #fff;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      margin-bottom: 2rem;
+    }
+
+    form label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
+
+    form input {
+      width: 100%;
+      padding: 0.5rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    form button {
+      background-color: #a67c52;
+      color: white;
+      border: none;
+      padding: 0.7rem 1.5rem;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    form button:hover {
+      background-color: #8c6239;
+    }
+
+    .produto-item {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background-color: #f8eee7;
+    }
+
+    .produto-item img {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 5px;
+    }
+
+    .produto-info {
+      flex: 1;
+    }
+
+    .produto-item button {
+      background-color: #c0392b;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .produto-item button:hover {
+      background-color: #a93226;
+    }
+
+    .nav-button {
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    .nav-button button {
+      background-color: #3a1f1a;
+      color: white;
+      border: none;
+      padding: 0.7rem 1.5rem;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .nav-button button:hover {
+      background-color: #5a3e28;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Adicionar Produto</h1>
+    <p>ML Fashion - Moda Cristã e Casual</p>
+  </header>
+
+  <main>
+    <form id="formProduto">
+      <label for="nome">Nome do Produto</label>
+      <input type="text" id="nome" name="nome" required />
+
+      <label for="preco">Preço</label>
+      <input type="text" id="preco" name="preco" required placeholder="R$ 0,00" />
+
+      <label for="imagemArquivo">Imagem do Produto</label>
+      <input type="file" id="imagemArquivo" name="imagemArquivo" accept="image/*" required />
+
+      <button type="submit">Adicionar Produto</button>
+    </form>
+
+    <h2>Produtos Adicionados</h2>
+    <div id="listaProdutos"></div>
+
+    <div class="nav-button">
+      <button onclick="window.location.href='index.html'">Voltar para o Início</button>
+    </div>
+  </main>
+
+  <script>
+    const precoInput = document.getElementById("preco");
+
+    precoInput.addEventListener("input", function () {
+      let valor = this.value.replace(/\D/g, "");
+      if (!valor) {
+        this.value = "";
+        return;
+      }
+      valor = String(Number(valor));
+      while (valor.length < 3) {
+        valor = "0" + valor;
+      }
+      let inteiro = valor.slice(0, -2);
+      let centavos = valor.slice(-2);
+      inteiro = inteiro.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+      this.value = `R$ ${inteiro},${centavos}`;
+    });
+
+    function salvarProduto(produto) {
+      let produtos = JSON.parse(localStorage.getItem("produtos")) || [];
+      produtos.push(produto);
+      localStorage.setItem("produtos", JSON.stringify(produtos));
+    }
+
+    function removerProduto(index) {
+      let produtos = JSON.parse(localStorage.getItem("produtos")) || [];
+      produtos.splice(index, 1);
+      localStorage.setItem("produtos", JSON.stringify(produtos));
+      carregarLista();
+    }
+
+    function carregarLista() {
+      const lista = document.getElementById("listaProdutos");
+      lista.innerHTML = "";
+      let produtos = JSON.parse(localStorage.getItem("produtos")) || [];
+
+      produtos.forEach((produto, index) => {
+        const item = document.createElement("div");
+        item.className = "produto-item";
+
+        item.innerHTML = `
+          <img src="${produto.imagemBase64}" alt="${produto.nome}" />
+          <div class="produto-info">
+            <strong>${produto.nome}</strong><br>
+            ${produto.preco}
+          </div>
+          <button onclick="removerProduto(${index})">Excluir</button>
+        `;
+
+        lista.appendChild(item);
+      });
+    }
+
+    document.getElementById("formProduto").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const nome = document.getElementById("nome").value;
+      const preco = document.getElementById("preco").value;
+      const imagemArquivo = document.getElementById("imagemArquivo").files[0];
+
+      if (!imagemArquivo) {
+        alert("Selecione uma imagem.");
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        const imagemBase64 = event.target.result;
+        const novoProduto = { nome, preco, imagemBase64 };
+        salvarProduto(novoProduto);
+        carregarLista();
+        document.getElementById("formProduto").reset();
+      };
+      reader.readAsDataURL(imagemArquivo);
+    });
+
+    window.onload = carregarLista;
+  </script>
+</body>
+</html>
