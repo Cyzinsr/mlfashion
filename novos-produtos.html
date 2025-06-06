@@ -26,6 +26,8 @@
       <button type="submit" class="pedido-btn">Adicionar Produto</button>
     </form>
 
+    <input type="text" id="buscaProduto" placeholder="Pesquisar produtos..." />
+
     <h2>Produtos Adicionados</h2>
     <div id="listaProdutos"></div>
 
@@ -34,31 +36,63 @@
     </div>
   </main>
 
+  <!-- Modal para editar produto -->
+  <div id="modalEditar">
+    <div class="modal-content">
+      <h3>Editar Produto</h3>
+      <form id="formEditarProduto">
+        <label for="editNome">Nome do Produto</label>
+        <input type="text" id="editNome" name="editNome" required />
+
+        <label for="editPreco">Preço</label>
+        <input type="text" id="editPreco" name="editPreco" required placeholder="R$ 0,00" />
+
+        <label for="editImagemArquivo">Imagem do Produto</label>
+        <input type="file" id="editImagemArquivo" name="editImagemArquivo" accept="image/*" />
+        <img id="previewImagemEditar" alt="Preview da imagem" />
+
+        <div class="modal-buttons">
+          <button type="submit" class="btn-salvar">Salvar</button>
+          <button type="button" class="btn-cancelar" id="btnCancelarEditar">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <script>
+    // Formatação do preço (para inputs de preço, inclusive no modal)
+    function formatarPrecoInput(input) {
+      input.addEventListener("input", function () {
+        let valor = this.value.replace(/\D/g, "");
+        if (!valor) {
+          this.value = "";
+          return;
+        }
+        valor = String(Number(valor));
+        while (valor.length < 3) {
+          valor = "0" + valor;
+        }
+        let inteiro = valor.slice(0, -2);
+        let centavos = valor.slice(-2);
+        inteiro = inteiro.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        this.value = `R$ ${inteiro},${centavos}`;
+      });
+    }
+
     const precoInput = document.getElementById("preco");
+    formatarPrecoInput(precoInput);
 
-    precoInput.addEventListener("input", function () {
-      let valor = this.value.replace(/\D/g, "");
-      if (!valor) {
-        this.value = "";
-        return;
-      }
-      valor = String(Number(valor));
-      while (valor.length < 3) {
-        valor = "0" + valor;
-      }
-      let inteiro = valor.slice(0, -2);
-      let centavos = valor.slice(-2);
-      inteiro = inteiro.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-      this.value = `R$ ${inteiro},${centavos}`;
-    });
+    const editPrecoInput = document.getElementById("editPreco");
+    formatarPrecoInput(editPrecoInput);
 
+    // Salvar produto no localStorage
     function salvarProduto(produto) {
       let produtos = JSON.parse(localStorage.getItem("produtos")) || [];
       produtos.push(produto);
       localStorage.setItem("produtos", JSON.stringify(produtos));
     }
 
+    // Remover produto
     function removerProduto(index) {
       let produtos = JSON.parse(localStorage.getItem("produtos")) || [];
       produtos.splice(index, 1);
@@ -66,10 +100,75 @@
       carregarLista();
     }
 
-    function carregarLista() {
+    // Variável para guardar índice do produto que está sendo editado
+    let indiceEditando = null;
+
+    // Mostrar modal para editar produto
+    function abrirModalEditar(index) {
+      indiceEditando = index;
+      let produtos = JSON.parse(localStorage.getItem("produtos")) || [];
+      const produto = produtos[index];
+
+      document.getElementById("editNome").value = produto.nome;
+      document.getElementById("editPreco").value = produto.preco;
+      document.getElementById("previewImagemEditar").src = produto.imagemBase64;
+
+      document.getElementById("editImagemArquivo").value = null;
+
+      document.getElementById("modalEditar").style.display = "flex";
+    }
+
+    // Fechar modal de edição
+    document.getElementById("btnCancelarEditar").addEventListener("click", () => {
+      document.getElementById("modalEditar").style.display = "none";
+    });
+
+    // Salvar edição
+    document.getElementById("formEditarProduto").addEventListener("submit", function (e) {
+      e.preventDefault();
+      let produtos = JSON.parse(localStorage.getItem("produtos")) || [];
+
+      let nome = document.getElementById("editNome").value;
+      let preco = document.getElementById("editPreco").value;
+      let imagemArquivo = document.getElementById("editImagemArquivo").files[0];
+
+      if (imagemArquivo) {
+        // Se selecionou nova imagem, converte para base64
+        const reader = new FileReader();
+        reader.onload = function(event) {
+          produtos[indiceEditando] = {
+            nome,
+            preco,
+            imagemBase64: event.target.result,
+          };
+          localStorage.setItem("produtos", JSON.stringify(produtos));
+          carregarLista();
+          document.getElementById("modalEditar").style.display = "none";
+        };
+        reader.readAsDataURL(imagemArquivo);
+      } else {
+        // Se não selecionou nova imagem, mantém a antiga
+        produtos[indiceEditando] = {
+          nome,
+          preco,
+          imagemBase64: produtos[indiceEditando].imagemBase64,
+        };
+        localStorage.setItem("produtos", JSON.stringify(produtos));
+        carregarLista();
+        document.getElementById("modalEditar").style.display = "none";
+      }
+    });
+
+    // Carregar lista de produtos
+    function carregarLista(filtrar = "") {
       const lista = document.getElementById("listaProdutos");
       lista.innerHTML = "";
       let produtos = JSON.parse(localStorage.getItem("produtos")) || [];
+
+      // Filtrar produtos pelo nome
+      if (filtrar) {
+        produtos = produtos.filter(p => p.nome.toLowerCase().includes(filtrar.toLowerCase()));
+      }
 
       produtos.forEach((produto, index) => {
         const item = document.createElement("div");
@@ -77,21 +176,22 @@
 
         item.innerHTML = `
           <img src="${produto.imagemBase64}" alt="${produto.nome}" />
-          <div class="produto-info">
-            <strong>${produto.nome}</strong><br>
-            ${produto.preco}
+          <div class="produto-info">${produto.nome}<br>${produto.preco}</div>
+          <div class="btn-group">
+            <button class="btn-editar" onclick="abrirModalEditar(${index})">Editar</button>
+            <button class="btn-excluir" onclick="removerProduto(${index})">Excluir</button>
           </div>
-          <button onclick="removerProduto(${index})">Excluir</button>
         `;
 
         lista.appendChild(item);
       });
     }
 
+    // Evento do formulário para adicionar produto
     document.getElementById("formProduto").addEventListener("submit", function(e) {
       e.preventDefault();
-      const nome = document.getElementById("nome").value;
-      const preco = document.getElementById("preco").value;
+      const nome = document.getElementById("nome").value.trim();
+      const preco = document.getElementById("preco").value.trim();
       const imagemArquivo = document.getElementById("imagemArquivo").files[0];
 
       if (!imagemArquivo) {
@@ -105,13 +205,19 @@
         const novoProduto = { nome, preco, imagemBase64 };
         salvarProduto(novoProduto);
         carregarLista();
-        document.getElementById("formProduto").reset();
-        document.querySelector("button[type='submit']").disabled = false; // Garante botão habilitado
-      };
+        this.form.reset();
+      }.bind(this);
+
       reader.readAsDataURL(imagemArquivo);
     });
 
-    window.onload = carregarLista;
+    // Pesquisa dinâmica
+    document.getElementById("buscaProduto").addEventListener("input", function() {
+      carregarLista(this.value);
+    });
+
+    // Mostrar a lista ao carregar a página
+    window.onload = () => carregarLista();
   </script>
 </body>
 </html>
