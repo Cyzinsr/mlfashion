@@ -53,19 +53,6 @@
       border-radius: 5px;
     }
 
-    form button {
-      background-color: #a67c52;
-      color: white;
-      border: none;
-      padding: 0.7rem 1.5rem;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-
-    form button:hover {
-      background-color: #8c6239;
-    }
-
     .produto-item {
       border: 1px solid #ccc;
       padding: 10px;
@@ -101,22 +88,23 @@
       background-color: #a93226;
     }
 
-    .nav-button {
-      text-align: center;
-      margin-top: 2rem;
-    }
-
-    .nav-button button {
+    .pedido-btn {
       background-color: #3a1f1a;
       color: white;
       border: none;
       padding: 0.7rem 1.5rem;
       border-radius: 8px;
       cursor: pointer;
+      font-size: 1rem;
     }
 
-    .nav-button button:hover {
+    .pedido-btn:hover {
       background-color: #5a3e28;
+    }
+
+    .nav-button {
+      text-align: center;
+      margin-top: 2rem;
     }
   </style>
 </head>
@@ -137,14 +125,14 @@
       <label for="imagemArquivo">Imagem do Produto</label>
       <input type="file" id="imagemArquivo" name="imagemArquivo" accept="image/*" required />
 
-      <button type="submit">Adicionar Produto</button>
+      <button type="submit" class="pedido-btn">Adicionar Produto</button>
     </form>
 
     <h2>Produtos Adicionados</h2>
     <div id="listaProdutos"></div>
 
     <div class="nav-button">
-      <button onclick="window.location.href='index.html'">Voltar para o Início</button>
+      <button class="pedido-btn" onclick="window.location.href='index.html'">Voltar para o Início</button>
     </div>
   </main>
 
