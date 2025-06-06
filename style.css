@@ -7,7 +7,6 @@ body {
   font-family: "Georgia", serif;
   background-color: #fffaf5;
   color: #3a1f1a;
-
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -38,7 +37,7 @@ body {
 /* CATÁLOGO */
 .catalogo {
   text-align: center;
-  padding: 40px 20px;
+  padding: 40px 20px 80px;
 }
 
 .catalogo h2 {
@@ -56,27 +55,56 @@ body {
 .produto {
   background-color: #f8eee7;
   border: 1px solid #e0d4cb;
-  border-radius: 8px;
+  border-radius: 10px;
   padding: 20px;
-  width: 200px;
+  width: 220px;
   text-align: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.produto:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .produto img {
   width: 100%;
   height: auto;
-  border-radius: 5px;
-  margin-bottom: 10px;
+  border-radius: 6px;
+  margin-bottom: 12px;
 }
 
 .produto h3 {
   margin: 10px 0 5px;
   font-size: 1.2em;
+  min-height: 48px;
 }
 
 .produto p {
-  margin: 0;
+  margin: 0 0 10px;
   font-weight: bold;
+  min-height: 24px;
+}
+
+/* BOTÃO PADRÃO */
+.pedido-btn {
+  margin-top: 10px;
+  background-color: #3a1f1a;
+  color: #fce7d2;
+  border: 1px solid #3a1f1a;
+  padding: 10px 20px;
+  font-size: 0.95em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 8px;
+}
+
+.pedido-btn:hover {
+  background-color: #fce7d2;
+  color: #3a1f1a;
 }
 
 /* RODAPÉ */
@@ -113,25 +141,6 @@ footer {
 .footer-center p,
 .footer-right p {
   margin: 10px 0;
-}
-
-/* BOTÕES */
-.pedido-btn {
-  margin-top: 10px;
-  background: transparent;
-  border: 1px solid #fce7d2;
-  color: #fce7d2;
-  padding: 10px 20px;
-  font-size: 1em;
-  cursor: pointer;
-  transition: all 0.3s;
-  text-decoration: none;
-  display: inline-block;
-}
-
-.pedido-btn:hover {
-  background: #fce7d2;
-  color: #3a1f1a;
 }
 
 /* RESPONSIVIDADE SIMPLES */
