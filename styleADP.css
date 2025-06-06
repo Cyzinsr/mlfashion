@@ -45,19 +45,6 @@ form input {
   border-radius: 5px;
 }
 
-input:focus {
-  outline: 2px solid #5a3e28;
-  border-color: #5a3e28;
-}
-
-/* Botões gerais */
-button,
-.pedido-btn,
-.btn-editar,
-.btn-excluir {
-  transition: background-color 0.3s ease;
-}
-
 .pedido-btn {
   background-color: #3a1f1a;
   color: white;
@@ -112,11 +99,8 @@ button,
 .produto-info {
   text-align: center;
   margin-bottom: 10px;
-  min-height: 55px;
-}
-
-.nome-produto {
   font-weight: bold;
+  min-height: 55px;
 }
 
 .btn-group {
@@ -233,11 +217,4 @@ button,
 
 #modalEditar .btn-cancelar:hover {
   background-color: #a93226;
-}
-
-/* Responsividade para telas pequenas */
-@media (max-width: 500px) {
-  .produto-item {
-    width: 100%;
-  }
 }
