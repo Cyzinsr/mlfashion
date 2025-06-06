@@ -1,359 +1,266 @@
-/* RESET GERAL E FONTES CRIATIVAS */
+/* RESET GERAL */
 html,
 body {
     height: 100%;
     margin: 0;
     padding: 0;
-    font-family: 'Montserrat', sans-serif; /* Fonte sans-serif moderna para o corpo */
-    background-color: #FDF9F6; /* Um creme mais suave e luminoso */
-    color: #3A1F1A; /* Cor de texto principal, mantém a base escura */
+    font-family: "Georgia", serif; /* Mantendo a fonte original */
+    background-color: #fffaf5; /* Cor de fundo do corpo */
+    color: #3a1f1a; /* Cor de texto principal, consistente com o header/footer */
 
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
-    line-height: 1.6; /* Aumenta o espaçamento entre linhas para melhor leitura */
-    font-weight: 300; /* Texto mais leve por padrão */
+    min-height: 100vh; /* Garante que o footer fique no final da página */
 }
 
 .main-content {
-    flex: 1;
-    max-width: 1200px;
-    margin: 40px auto; /* Aumenta o espaço */
-    padding: 0 25px; /* Mais padding lateral */
+    flex: 1; /* Faz o conteúdo principal ocupar o espaço restante */
+    max-width: 1200px; /* Limita a largura máxima do conteúdo para melhor leitura */
+    margin: 30px auto; /* Centraliza o conteúdo principal e adiciona espaço */
+    padding: 0 20px; /* Adiciona padding lateral para telas menores */
 }
 
-/* TOPO - MAIS REFINADO */
+/* TOPO */
 .topo {
-    background-color: #3A1F1A;
-    color: #FCE7D2;
-    padding: 40px 0; /* Mais padding vertical */
+    background-color: #3a1f1a; /* Cor escura para o header */
+    color: #fce7d2; /* Cor clara para o texto do header */
+    padding: 30px 40px;
     text-align: center;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Sombra mais profunda */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra sutil para o header */
 }
 
 .logo h1 {
     margin: 0;
-    font-family: 'Playfair Display', serif; /* Fonte serifada elegante para o título */
-    font-size: 3.5em; /* Título maior e mais impactante */
-    letter-spacing: 2px;
-    font-weight: 700; /* Negrito mais forte */
-    text-transform: uppercase; /* Deixa em maiúsculas */
+    font-size: 2.5em;
 }
 
 .logo p {
-    margin: 10px 0 0;
-    font-size: 1.3em;
-    font-family: 'Playfair Display', serif; /* Subtítulo também com a fonte elegante */
-    opacity: 0.8;
-    font-weight: 400;
+    margin: 5px 0 0;
+    font-size: 1.1em;
 }
 
-/* CATÁLOGO - APRESENTAÇÃO MAIS ESTILOSA */
+/* CATÁLOGO */
 .catalogo {
     text-align: center;
-    padding: 60px 0 40px; /* Mais espaço acima */
+    padding: 40px 0; /* Padding superior e inferior, já que o main-content tem lateral */
 }
 
 .catalogo h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: 3em; /* Título do catálogo maior */
-    margin-bottom: 60px; /* Mais espaço abaixo do título */
-    color: #3A1F1A;
-    position: relative; /* Para o pseudo-elemento */
-    padding-bottom: 15px;
-}
-
-.catalogo h2::after { /* Adiciona uma linha decorativa sob o título */
-    content: '';
-    position: absolute;
-    left: 50%;
-    bottom: 0;
-    transform: translateX(-50%);
-    width: 80px;
-    height: 3px;
-    background-color: #B58863; /* Um tom dourado/cobre para acento */
-    border-radius: 2px;
+    font-size: 2em;
+    margin-bottom: 40px;
+    color: #3a1f1a; /* Consistente com o tema */
 }
 
 .produtos {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
-    gap: 40px; /* Mais espaço entre os cards para destacá-los */
-    padding: 20px 0;
+    justify-content: center; /* Centraliza os produtos */
+    gap: 30px; /* Espaço entre os cards */
+    padding: 20px 0; /* Adiciona um pouco de padding interno na área de produtos */
 }
 
-/* ESTILO DO CARD DO PRODUTO - MAIS MINIMALISTA E ARTÍSTICO */
+/* ESTILO DO CARD DO PRODUTO (produto) */
 .produto {
-    background-color: #FFFFFF; /* Fundo branco puro para o card */
-    border: none; /* Remove a borda padrão */
-    border-radius: 5px; /* Bordas levemente arredondadas */
-    padding: 0; /* Remove padding inicial do card */
-    width: 280px; /* Largura fixa para manter proporção */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    background-color: #f8eee7; /* Cor de fundo do card, mais clara que o body */
+    border: 1px solid #e0d4cb; /* Borda suave */
+    border-radius: 8px; /* Bordas arredondadas */
+    padding: 20px;
+    width: 200px; /* Largura definida para o card */
     text-align: center;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); /* Sombra mais suave e espalhada */
-    transition: transform 0.4s ease-out, box-shadow 0.4s ease-out; /* Transição mais suave e longa */
-    overflow: hidden; /* Garante que nada saia do card */
-    position: relative; /* Para efeitos internos */
+    transition: transform 0.2s;
+    display: flex; /* Adicionado para organizar o conteúdo verticalmente */
+    flex-direction: column; /* Adicionado para organizar o conteúdo verticalmente */
+    align-items: center; /* Centraliza itens dentro do card */
 }
 
 .produto:hover {
-    transform: translateY(-12px); /* Efeito de "levantar" mais pronunciado */
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15); /* Sombra mais intensa e visível no hover */
+    transform: scale(1.03); /* Efeito de zoom sutil no hover */
 }
 
 .produto img {
     width: 100%;
-    height: 320px; /* Altura fixa para as imagens */
-    object-fit: cover;
-    border-radius: 0; /* Remove bordas arredondadas da imagem */
-    margin-bottom: 0; /* Remove margem */
-    border: none; /* Remove borda da imagem */
-    transition: transform 0.0s ease, opacity 0.4s ease; /* Transição para zoom/opacidade no hover */
-}
-
-/* Informações do produto dentro do card */
-.produto .info-box {
-    padding: 20px; /* Adiciona padding para o conteúdo de texto */
-    width: 100%;
-    box-sizing: border-box; /* Inclui padding na largura */
-    background-color: #FFFFFF; /* Fundo branco para a caixa de info */
-    position: relative;
-    z-index: 2; /* Garante que fique acima de outros elementos */
-    font-family: 'Montserrat', sans-serif; /* Consistência da fonte */
+    height: 200px; /* Altura fixa para as imagens dos produtos, para padronizar */
+    object-fit: cover; /* Garante que a imagem preencha a área sem distorcer */
+    border-radius: 5px; /* Bordas arredondadas para a imagem */
+    margin-bottom: 10px; /* Margem abaixo da imagem */
 }
 
 .produto h3 {
-    margin: 0 0 8px; /* Ajuste de margens */
-    font-size: 1.5em; /* Nome do produto maior */
-    color: #3A1F1A;
-    font-weight: 600; /* Mais peso para o nome */
-    text-transform: uppercase; /* Nome do produto em maiúsculas */
-    letter-spacing: 0.5px;
+    margin: 10px 0 5px; /* Ajuste de margens */
+    font-size: 1.2em; /* Tamanho do nome do produto */
+    color: #3a1f1a; /* Cor do texto do nome do produto */
+    font-weight: bold;
 }
 
 .produto p {
     margin: 0;
-    font-size: 1.7em; /* Preço maior e mais destacado */
-    font-weight: 700;
-    color: #B58863; /* Cor dourada/cobre para o preço */
+    font-size: 1.3em; /* Tamanho do preço */
+    font-weight: bold;
+    color: #3a1f1a; /* Cor do preço, consistente com o tema */
 }
 
-/* Efeito de sobreposição no hover para a imagem */
-.produto:hover img {
-    transform: scale(1.05); /* Pequeno zoom na imagem */
-}
-
-
-/* BOTÕES GERAIS - MAIS REFINADOS */
+/* BOTÕES GERAIS */
 .pedido-btn {
-    margin-top: 25px; /* Mais espaço */
-    background-color: #B58863; /* Cor do acento para o botão principal */
-    border: 1px solid #B58863;
-    color: #FFFFFF; /* Texto branco */
-    padding: 15px 30px; /* Botão maior */
-    font-size: 1.15em;
+    margin-top: 10px;
+    background-color: #3a1f1a;
+    border: 1px solid #fce7d2;
+    color: #fce7d2;
+    padding: 10px 20px;
+    font-size: 1em;
     cursor: pointer;
-    border-radius: 50px; /* Botão pilular para um visual moderno */
-    transition: all 0.4s ease;
+    border-radius: 8px;
+    transition: all 0.3s ease;
     text-decoration: none;
     display: inline-block;
-    letter-spacing: 1px;
-    font-weight: 600;
-    text-transform: uppercase;
 }
 
 .pedido-btn:hover {
-    background-color: #3A1F1A; /* Inverte as cores no hover */
-    color: #FCE7D2;
-    transform: translateY(-5px); /* Efeito de levantar mais sutil */
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    background-color: #fce7d2;
+    color: #3a1f1a;
 }
 
-/* RODAPÉ - MAIS ELEGANTE */
+/* RODAPÉ */
 footer {
-    background-color: #3A1F1A;
-    color: #FCE7D2;
-    padding: 50px 40px; /* Mais padding */
-    margin-top: auto;
-    font-size: 0.9em;
+    background-color: #3a1f1a;
+    color: #fce7d2;
+    padding: 30px 40px;
+    margin-top: auto; /* Garante que o footer fique no final da página */
 }
 
 .footer-container {
-    max-width: 1200px;
-    margin: 0 auto;
+    max-width: 1200px; /* Limita a largura máxima do conteúdo do footer */
+    margin: 0 auto; /* Centraliza o conteúdo do footer */
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    gap: 40px; /* Mais espaço entre as colunas */
-    border-top: 1px solid rgba(252, 231, 210, 0.3); /* Borda mais suave */
-    border-bottom: 1px solid rgba(252, 231, 210, 0.3);
-    padding-top: 30px;
-    padding-bottom: 30px;
+    gap: 30px;
+    border-top: 2px solid #fce7d2;
+    border-bottom: 2px solid #fce7d2;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 
 .footer-left,
 .footer-center,
 .footer-right {
     flex: 1;
-    min-width: 280px; /* Aumenta o min-width */
-    padding: 0;
+    min-width: 250px;
 }
 
 .footer-left h3 {
-    margin: 0 0 15px; /* Mais espaço abaixo do título */
-    font-family: 'Playfair Display', serif;
-    font-size: 1.8em; /* Título do footer maior */
-    color: #FCE7D2;
-    font-weight: 700;
+    margin: 0;
+    font-size: 1.5em;
 }
 
 .footer-left p,
 .footer-center p,
 .footer-right p {
-    margin: 8px 0;
-    line-height: 1.8; /* Mais espaçamento entre linhas */
-    font-weight: 300;
+    margin: 10px 0;
 }
 
-/* BOTÕES DO RODAPÉ - CONSISTENTES COM OS GERAIS */
+/* BOTÕES DO RODAPÉ */
 .footer-container .pedido-btn {
-    background-color: #3A1F1A;
-    color: #FCE7D2;
-    border: 1px solid #FCE7D2;
-    padding: 10px 20px;
-    font-size: 0.9em;
-    border-radius: 50px; /* Também pilular */
-    margin-top: 15px;
-    margin-right: 15px; /* Ajuste para espaçamento */
+    background-color: #3a1f1a;
+    color: #fce7d2;
+    border: 1px solid #fce7d2;
+    padding: 10px 18px;
+    font-size: 0.95em;
+    border-radius: 8px;
+    margin-top: 10px;
+    margin-right: 10px;
     cursor: pointer;
     transition: all 0.3s ease;
     text-decoration: none;
-    display: inline-block;
-    font-weight: 400;
 }
 
 .footer-container .pedido-btn:hover {
-    background-color: #FCE7D2;
-    color: #3A1F1A;
-    transform: translateY(-3px);
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    background-color: #fce7d2;
+    color: #3a1f1a;
 }
 
-/* RESPONSIVIDADE - MAIS REFINADA */
-@media (max-width: 1024px) {
-    .main-content {
-        padding: 0 20px;
-    }
-    .catalogo h2 {
-        font-size: 2.5em;
-    }
+/* RESPONSIVIDADE */
+@media (max-width: 900px) { /* Ajusta o breakpoint para telas um pouco maiores, como tablets */
     .produtos {
-        gap: 30px; /* Reduz um pouco o gap */
+        gap: 20px; /* Diminui o espaçamento entre cards em telas médias */
     }
     .produto {
-        width: 260px; /* Levemente menor para caber mais */
+        width: 45%; /* Permite 2 cards por linha na maioria dos tablets */
+        max-width: 280px; /* Garante que não fiquem muito grandes */
     }
-    .produto img {
-        height: 280px;
+    .footer-container {
+        justify-content: center; /* Centraliza as colunas do footer */
+        text-align: center;
     }
 }
 
-@media (max-width: 768px) { /* Tablet Portrait e Celular Landscape */
+@media (max-width: 600px) { /* Celulares */
     .topo {
-        padding: 30px 20px;
+        padding: 20px;
     }
     .logo h1 {
-        font-size: 2.8em;
+        font-size: 2.2em;
     }
     .logo p {
+        font-size: 1em;
+    }
+
+    .catalogo h2 {
+        font-size: 1.8em; /* Ajusta o tamanho do h2 */
+        margin-bottom: 30px;
+    }
+
+    .produtos {
+        flex-direction: column; /* Empilha os produtos verticalmente */
+        align-items: center; /* Centraliza os produtos empilhados */
+        gap: 25px; /* Espaço entre cards empilhados */
+    }
+
+    .produto {
+        width: 90%; /* Ocupa a maior parte da largura da tela */
+        max-width: 300px; /* Limita a largura máxima em telas menores */
+        padding: 15px; /* Ajusta o padding do card */
+    }
+
+    .produto img {
+        height: 180px; /* Altura da imagem um pouco menor em mobile */
+    }
+
+    .produto h3 {
         font-size: 1.1em;
     }
 
-    .catalogo h2 {
-        font-size: 2.2em;
-        margin-bottom: 40px;
-    }
-
-    .produtos {
-        flex-direction: column; /* Stacks products vertically */
-        align-items: center; /* Centers them */
-        gap: 30px;
-    }
-
-    .produto {
-        width: 90%; /* Take up most of the screen width */
-        max-width: 350px; /* Max width to prevent overly wide cards on tablets */
-        padding: 0; /* Remove padding, info-box cuida disso */
-    }
-    .produto img {
-        height: 280px; /* Ajusta altura da imagem em mobile */
-    }
-    .produto .info-box {
-        padding: 15px;
-    }
-    .produto h3 {
-        font-size: 1.4em;
-    }
     .produto p {
-        font-size: 1.6em;
+        font-size: 1.2em;
     }
 
     .pedido-btn {
-        padding: 12px 25px;
-        font-size: 1em;
-        display: block; /* Make general buttons stack */
-        width: fit-content;
-        margin: 20px auto 0; /* Center general buttons */
+        display: block; /* Faz os botões gerais empilharem */
+        width: fit-content; /* Ajusta a largura ao conteúdo */
+        margin: 10px auto; /* Centraliza os botões gerais */
     }
 
     footer {
-        padding: 40px 20px;
+        padding: 20px;
     }
+
     .footer-container {
         flex-direction: column;
         align-items: center;
         text-align: center;
-        gap: 25px;
+        gap: 20px; /* Diminui o espaçamento entre as colunas do footer */
+        padding-top: 15px;
+        padding-bottom: 15px;
     }
+
     .footer-left,
     .footer-center,
     .footer-right {
-        min-width: unset;
+        min-width: unset; /* Remove min-width para permitir largura total */
         width: 100%;
+        padding: 0; /* Remove padding lateral para alinhar */
     }
-    .footer-left h3 {
-        font-size: 1.5em;
-    }
-    .footer-container .pedido-btn {
-        margin: 10px auto;
-    }
-}
 
-@media (max-width: 480px) { /* Celulares Pequenos */
-    .topo {
-        padding: 25px 15px;
-    }
-    .logo h1 {
-        font-size: 2.4em;
-    }
-    .logo p {
-        font-size: 1em;
-    }
-    .catalogo h2 {
-        font-size: 2em;
-    }
-    .produto {
-        width: 95%; /* Quase 100% da largura */
-    }
-    .produto img {
-        height: 240px; /* Altura da imagem ainda menor */
-    }
-    .pedido-btn {
-        font-size: 0.95em;
-        padding: 10px 20px;
+    .footer-container .pedido-btn {
+        margin: 10px auto; /* Centraliza os botões do rodapé */
     }
 }
