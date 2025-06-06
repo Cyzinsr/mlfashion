@@ -53,6 +53,20 @@
       border-radius: 5px;
     }
 
+    .pedido-btn {
+      background-color: #3a1f1a;
+      color: white;
+      border: none;
+      padding: 0.7rem 1.5rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .pedido-btn:hover {
+      background-color: #5a3e28;
+    }
+
     .produto-item {
       border: 1px solid #ccc;
       padding: 10px;
@@ -85,21 +99,7 @@
     }
 
     .produto-item button:hover {
-      background-color: #fce7d2;
-    }
-
-    .pedido-btn {
-      background-color: #3a1f1a;
-      color: white;
-      border: none;
-      padding: 0.7rem 1.5rem;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 1rem;
-    }
-
-    .pedido-btn:hover {
-      background-color: #5a3e28;
+      background-color: #a93226;
     }
 
     .nav-button {
@@ -208,6 +208,7 @@
         salvarProduto(novoProduto);
         carregarLista();
         document.getElementById("formProduto").reset();
+        document.querySelector("button[type='submit']").disabled = false;
       };
       reader.readAsDataURL(imagemArquivo);
     });
