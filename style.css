@@ -1,266 +1,193 @@
-/* RESET GERAL */
-html,
+/* Global Styles - Adjust as needed to match your exact fonts and colors */
 body {
-    height: 100%;
+    font-family: Arial, sans-serif; /* Example font, use one that matches your site */
     margin: 0;
     padding: 0;
-    font-family: "Georgia", serif; /* Mantendo a fonte original */
-    background-color: #fffaf5; /* Cor de fundo do corpo */
-    color: #3a1f1a; /* Cor de texto principal, consistente com o header/footer */
-
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh; /* Garante que o footer fique no final da página */
+    background-color: #f8f8f8; /* Light background for the main content area */
+    color: #333; /* Default text color */
 }
 
-.main-content {
-    flex: 1; /* Faz o conteúdo principal ocupar o espaço restante */
-    max-width: 1200px; /* Limita a largura máxima do conteúdo para melhor leitura */
-    margin: 30px auto; /* Centraliza o conteúdo principal e adiciona espaço */
-    padding: 0 20px; /* Adiciona padding lateral para telas menores */
-}
-
-/* TOPO */
+/* Header Styles */
 .topo {
-    background-color: #3a1f1a; /* Cor escura para o header */
-    color: #fce7d2; /* Cor clara para o texto do header */
-    padding: 30px 40px;
+    background-color: #4A2C2A; /* Dark brown/maroon color from the image */
+    color: white;
+    padding: 20px 0;
     text-align: center;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra sutil para o header */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-.logo h1 {
+.topo h1 {
     margin: 0;
     font-size: 2.5em;
 }
 
-.logo p {
+.topo p {
     margin: 5px 0 0;
     font-size: 1.1em;
 }
 
-/* CATÁLOGO */
-.catalogo {
-    text-align: center;
-    padding: 40px 0; /* Padding superior e inferior, já que o main-content tem lateral */
+/* Main Content Area */
+.main-content {
+    max-width: 1200px; /* Max width for content, adjust as needed */
+    margin: 30px auto; /* Center the main content */
+    padding: 0 20px;
 }
 
 .catalogo h2 {
+    text-align: center;
+    margin-bottom: 30px;
     font-size: 2em;
-    margin-bottom: 40px;
-    color: #3a1f1a; /* Consistente com o tema */
+    color: #4A2C2A; /* Match header color for headings */
 }
 
+/* Products Container - Using Flexbox for responsiveness */
 .produtos {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center; /* Centraliza os produtos */
-    gap: 30px; /* Espaço entre os cards */
-    padding: 20px 0; /* Adiciona um pouco de padding interno na área de produtos */
+    flex-wrap: wrap; /* Allows products to wrap to the next line */
+    justify-content: center; /* Centers items horizontally */
+    gap: 30px; /* Space between product cards */
+    padding: 20px 0;
 }
 
-/* ESTILO DO CARD DO PRODUTO (produto) */
-.produto {
-    background-color: #f8eee7; /* Cor de fundo do card, mais clara que o body */
-    border: 1px solid #e0d4cb; /* Borda suave */
-    border-radius: 8px; /* Bordas arredondadas */
-    padding: 20px;
-    width: 200px; /* Largura definida para o card */
-    text-align: center;
-    transition: transform 0.2s;
-    display: flex; /* Adicionado para organizar o conteúdo verticalmente */
-    flex-direction: column; /* Adicionado para organizar o conteúdo verticalmente */
-    align-items: center; /* Centraliza itens dentro do card */
-}
-
-.produto:hover {
-    transform: scale(1.03); /* Efeito de zoom sutil no hover */
-}
-
-.produto img {
-    width: 100%;
-    height: 200px; /* Altura fixa para as imagens dos produtos, para padronizar */
-    object-fit: cover; /* Garante que a imagem preencha a área sem distorcer */
-    border-radius: 5px; /* Bordas arredondadas para a imagem */
-    margin-bottom: 10px; /* Margem abaixo da imagem */
-}
-
-.produto h3 {
-    margin: 10px 0 5px; /* Ajuste de margens */
-    font-size: 1.2em; /* Tamanho do nome do produto */
-    color: #3a1f1a; /* Cor do texto do nome do produto */
-    font-weight: bold;
-}
-
-.produto p {
-    margin: 0;
-    font-size: 1.3em; /* Tamanho do preço */
-    font-weight: bold;
-    color: #3a1f1a; /* Cor do preço, consistente com o tema */
-}
-
-/* BOTÕES GERAIS */
-.pedido-btn {
-    margin-top: 10px;
-    background-color: #3a1f1a;
-    border: 1px solid #fce7d2;
-    color: #fce7d2;
-    padding: 10px 20px;
-    font-size: 1em;
-    cursor: pointer;
+/* Product Card Styling */
+.produto-card {
+    background-color: white;
     border-radius: 8px;
-    transition: all 0.3s ease;
-    text-decoration: none;
-    display: inline-block;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    width: 280px; /* Fixed width for the card, adjust for responsiveness */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.2s ease-in-out; /* Smooth hover effect */
 }
 
-.pedido-btn:hover {
-    background-color: #fce7d2;
-    color: #3a1f1a;
+.produto-card:hover {
+    transform: translateY(-5px); /* Lift effect on hover */
 }
 
-/* RODAPÉ */
+.produto-card img {
+    max-width: 100%; /* Ensures image fits within the card */
+    height: 300px; /* Fixed height for consistency, adjust as needed */
+    object-fit: cover; /* Crops image to fit without distortion */
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+
+.produto-card .nome-produto {
+    font-size: 1.3em;
+    font-weight: bold;
+    color: #4A2C2A; /* Consistent heading color */
+    margin-bottom: 10px;
+}
+
+.produto-card .preco-produto {
+    font-size: 1.4em;
+    color: #333; /* Darker color for price */
+    font-weight: bold;
+}
+
+/* Footer Styles */
 footer {
-    background-color: #3a1f1a;
-    color: #fce7d2;
-    padding: 30px 40px;
-    margin-top: auto; /* Garante que o footer fique no final da página */
+    background-color: #4A2C2A; /* Dark brown/maroon */
+    color: white;
+    padding: 30px 0;
+    margin-top: 50px; /* Space above the footer */
 }
 
 .footer-container {
-    max-width: 1200px; /* Limita a largura máxima do conteúdo do footer */
-    margin: 0 auto; /* Centraliza o conteúdo do footer */
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
     display: flex;
+    flex-wrap: wrap; /* Allows columns to wrap */
     justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 30px;
-    border-top: 2px solid #fce7d2;
-    border-bottom: 2px solid #fce7d2;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    align-items: flex-start; /* Align items to the top */
+    gap: 20px; /* Space between footer columns */
 }
 
 .footer-left,
 .footer-center,
 .footer-right {
-    flex: 1;
-    min-width: 250px;
+    flex: 1; /* Allows columns to grow */
+    min-width: 200px; /* Minimum width for columns */
+    padding: 10px;
 }
 
 .footer-left h3 {
-    margin: 0;
+    margin-top: 0;
     font-size: 1.5em;
 }
 
-.footer-left p,
-.footer-center p,
+.footer-left p {
+    font-size: 0.9em;
+}
+
+.footer-center p {
+    font-size: 0.9em;
+    line-height: 1.5;
+}
+
 .footer-right p {
-    margin: 10px 0;
+    font-size: 0.9em;
+    margin-bottom: 5px;
 }
 
-/* BOTÕES DO RODAPÉ */
-.footer-container .pedido-btn {
-    background-color: #3a1f1a;
-    color: #fce7d2;
-    border: 1px solid #fce7d2;
-    padding: 10px 18px;
-    font-size: 0.95em;
-    border-radius: 8px;
-    margin-top: 10px;
-    margin-right: 10px;
-    cursor: pointer;
-    transition: all 0.3s ease;
+.pedido-btn {
+    display: inline-block;
+    background-color: white;
+    color: #4A2C2A;
+    padding: 10px 15px;
+    border-radius: 5px;
     text-decoration: none;
+    font-weight: bold;
+    margin-right: 10px;
+    margin-bottom: 10px; /* For stacking on smaller screens */
+    transition: background-color 0.3s ease;
 }
 
-.footer-container .pedido-btn:hover {
-    background-color: #fce7d2;
-    color: #3a1f1a;
+.pedido-btn:hover {
+    background-color: #ddd;
 }
 
-/* RESPONSIVIDADE */
-@media (max-width: 900px) { /* Ajusta o breakpoint para telas um pouco maiores, como tablets */
-    .produtos {
-        gap: 20px; /* Diminui o espaçamento entre cards em telas médias */
-    }
-    .produto {
-        width: 45%; /* Permite 2 cards por linha na maioria dos tablets */
-        max-width: 280px; /* Garante que não fiquem muito grandes */
-    }
-    .footer-container {
-        justify-content: center; /* Centraliza as colunas do footer */
-        text-align: center;
-    }
-}
-
-@media (max-width: 600px) { /* Celulares */
-    .topo {
-        padding: 20px;
-    }
-    .logo h1 {
-        font-size: 2.2em;
-    }
-    .logo p {
-        font-size: 1em;
-    }
-
-    .catalogo h2 {
-        font-size: 1.8em; /* Ajusta o tamanho do h2 */
-        margin-bottom: 30px;
-    }
-
-    .produtos {
-        flex-direction: column; /* Empilha os produtos verticalmente */
-        align-items: center; /* Centraliza os produtos empilhados */
-        gap: 25px; /* Espaço entre cards empilhados */
-    }
-
-    .produto {
-        width: 90%; /* Ocupa a maior parte da largura da tela */
-        max-width: 300px; /* Limita a largura máxima em telas menores */
-        padding: 15px; /* Ajusta o padding do card */
-    }
-
-    .produto img {
-        height: 180px; /* Altura da imagem um pouco menor em mobile */
-    }
-
-    .produto h3 {
-        font-size: 1.1em;
-    }
-
-    .produto p {
-        font-size: 1.2em;
-    }
-
-    .pedido-btn {
-        display: block; /* Faz os botões gerais empilharem */
-        width: fit-content; /* Ajusta a largura ao conteúdo */
-        margin: 10px auto; /* Centraliza os botões gerais */
-    }
-
-    footer {
-        padding: 20px;
-    }
-
+/* Responsive Adjustments for Footer */
+@media (max-width: 768px) {
     .footer-container {
         flex-direction: column;
-        align-items: center;
+        align-items: center; /* Center columns vertically */
         text-align: center;
-        gap: 20px; /* Diminui o espaçamento entre as colunas do footer */
-        padding-top: 15px;
-        padding-bottom: 15px;
     }
 
     .footer-left,
     .footer-center,
     .footer-right {
-        min-width: unset; /* Remove min-width para permitir largura total */
-        width: 100%;
-        padding: 0; /* Remove padding lateral para alinhar */
+        min-width: unset; /* Remove min-width for full width */
+        width: 100%; /* Take full width */
     }
 
-    .footer-container .pedido-btn {
-        margin: 10px auto; /* Centraliza os botões do rodapé */
+    .pedido-btn {
+        display: block; /* Make buttons stack */
+        width: fit-content; /* Adjust width to content */
+        margin: 10px auto; /* Center buttons */
+    }
+}
+
+/* Responsive adjustments for product cards */
+@media (max-width: 768px) {
+    .produtos {
+        flex-direction: column; /* Stack cards vertically on small screens */
+        align-items: center;
+    }
+
+    .produto-card {
+        width: 90%; /* Make cards take up more width on small screens */
+        max-width: 300px; /* Prevent them from getting too wide on tablets */
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .produto-card {
+        width: 220px; /* Adjust width for medium screens to fit more */
     }
 }
