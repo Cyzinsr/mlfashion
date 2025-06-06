@@ -1,193 +1,365 @@
-/* Global Styles - Adjust as needed to match your exact fonts and colors */
+/* RESET GERAL */
+
+html,
+
 body {
-    font-family: Arial, sans-serif; /* Example font, use one that matches your site */
-    margin: 0;
-    padding: 0;
-    background-color: #f8f8f8; /* Light background for the main content area */
-    color: #333; /* Default text color */
+
+  height: 100%;
+
+  margin: 0;
+
+  padding: 0;
+
+  font-family: "Georgia", serif;
+
+  background-color: #fffaf5;
+
+  color: #3a1f1a;
+
+
+
+  display: flex;
+
+  flex-direction: column;
+
+  min-height: 100vh;
+
 }
 
-/* Header Styles */
-.topo {
-    background-color: #4A2C2A; /* Dark brown/maroon color from the image */
-    color: white;
-    padding: 20px 0;
-    text-align: center;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-}
 
-.topo h1 {
-    margin: 0;
-    font-size: 2.5em;
-}
 
-.topo p {
-    margin: 5px 0 0;
-    font-size: 1.1em;
-}
-
-/* Main Content Area */
 .main-content {
-    max-width: 1200px; /* Max width for content, adjust as needed */
-    margin: 30px auto; /* Center the main content */
-    padding: 0 20px;
+
+  flex: 1;
+
 }
+
+
+
+/* TOPO */
+
+.topo {
+
+  background-color: #3a1f1a;
+
+  color: #fce7d2;
+
+  padding: 30px 40px;
+
+  text-align: center;
+
+}
+
+
+
+.logo h1 {
+
+  margin: 0;
+
+  font-size: 2.5em;
+
+}
+
+
+
+.logo p {
+
+  margin: 5px 0 0;
+
+  font-size: 1.1em;
+
+}
+
+
+
+/* CATÁLOGO */
+
+.catalogo {
+
+  text-align: center;
+
+  padding: 40px 20px;
+
+}
+
+
 
 .catalogo h2 {
-    text-align: center;
-    margin-bottom: 30px;
-    font-size: 2em;
-    color: #4A2C2A; /* Match header color for headings */
+
+  font-size: 2em;
+
+  margin-bottom: 40px;
+
 }
 
-/* Products Container - Using Flexbox for responsiveness */
+
+
 .produtos {
-    display: flex;
-    flex-wrap: wrap; /* Allows products to wrap to the next line */
-    justify-content: center; /* Centers items horizontally */
-    gap: 30px; /* Space between product cards */
-    padding: 20px 0;
+
+  display: flex;
+
+  flex-wrap: wrap;
+
+  justify-content: center;
+
+  gap: 30px;
+
 }
 
-/* Product Card Styling */
-.produto-card {
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    text-align: center;
-    width: 280px; /* Fixed width for the card, adjust for responsiveness */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    transition: transform 0.2s ease-in-out; /* Smooth hover effect */
+
+
+.produto {
+
+  background-color: #f8eee7;
+
+  border: 1px solid #e0d4cb;
+
+  border-radius: 8px;
+
+  padding: 20px;
+
+  width: 200px;
+
+  text-align: center;
+
+  transition: transform 0.2s;
+
 }
 
-.produto-card:hover {
-    transform: translateY(-5px); /* Lift effect on hover */
+
+
+.produto:hover {
+
+  transform: scale(1.03);
+
 }
 
-.produto-card img {
-    max-width: 100%; /* Ensures image fits within the card */
-    height: 300px; /* Fixed height for consistency, adjust as needed */
-    object-fit: cover; /* Crops image to fit without distortion */
-    border-radius: 4px;
-    margin-bottom: 15px;
+
+
+.produto img {
+
+  width: 100%;
+
+  height: auto;
+
+  border-radius: 5px;
+
+  margin-bottom: 10px;
+
 }
 
-.produto-card .nome-produto {
-    font-size: 1.3em;
-    font-weight: bold;
-    color: #4A2C2A; /* Consistent heading color */
-    margin-bottom: 10px;
+
+
+.produto h3 {
+
+  margin: 10px 0 5px;
+
+  font-size: 1.2em;
+
 }
 
-.produto-card .preco-produto {
-    font-size: 1.4em;
-    color: #333; /* Darker color for price */
-    font-weight: bold;
+
+
+.produto p {
+
+  margin: 0;
+
+  font-weight: bold;
+
 }
 
-/* Footer Styles */
-footer {
-    background-color: #4A2C2A; /* Dark brown/maroon */
-    color: white;
-    padding: 30px 0;
-    margin-top: 50px; /* Space above the footer */
-}
 
-.footer-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-    display: flex;
-    flex-wrap: wrap; /* Allows columns to wrap */
-    justify-content: space-between;
-    align-items: flex-start; /* Align items to the top */
-    gap: 20px; /* Space between footer columns */
-}
 
-.footer-left,
-.footer-center,
-.footer-right {
-    flex: 1; /* Allows columns to grow */
-    min-width: 200px; /* Minimum width for columns */
-    padding: 10px;
-}
-
-.footer-left h3 {
-    margin-top: 0;
-    font-size: 1.5em;
-}
-
-.footer-left p {
-    font-size: 0.9em;
-}
-
-.footer-center p {
-    font-size: 0.9em;
-    line-height: 1.5;
-}
-
-.footer-right p {
-    font-size: 0.9em;
-    margin-bottom: 5px;
-}
+/* BOTÕES GERAIS */
 
 .pedido-btn {
-    display: inline-block;
-    background-color: white;
-    color: #4A2C2A;
-    padding: 10px 15px;
-    border-radius: 5px;
-    text-decoration: none;
-    font-weight: bold;
-    margin-right: 10px;
-    margin-bottom: 10px; /* For stacking on smaller screens */
-    transition: background-color 0.3s ease;
+
+  margin-top: 10px;
+
+  background-color: #3a1f1a;
+
+  border: 1px solid #fce7d2;
+
+  color: #fce7d2;
+
+  padding: 10px 20px;
+
+  font-size: 1em;
+
+  cursor: pointer;
+
+  border-radius: 8px;
+
+  transition: all 0.3s ease;
+
+  text-decoration: none;
+
+  display: inline-block;
+
 }
+
+
 
 .pedido-btn:hover {
-    background-color: #ddd;
+
+  background-color: #fce7d2;
+
+  color: #3a1f1a;
+
 }
 
-/* Responsive Adjustments for Footer */
-@media (max-width: 768px) {
-    .footer-container {
-        flex-direction: column;
-        align-items: center; /* Center columns vertically */
-        text-align: center;
-    }
 
-    .footer-left,
-    .footer-center,
-    .footer-right {
-        min-width: unset; /* Remove min-width for full width */
-        width: 100%; /* Take full width */
-    }
 
-    .pedido-btn {
-        display: block; /* Make buttons stack */
-        width: fit-content; /* Adjust width to content */
-        margin: 10px auto; /* Center buttons */
-    }
+/* RODAPÉ */
+
+footer {
+
+  background-color: #3a1f1a;
+
+  color: #fce7d2;
+
+  padding: 30px 40px;
+
 }
 
-/* Responsive adjustments for product cards */
-@media (max-width: 768px) {
-    .produtos {
-        flex-direction: column; /* Stack cards vertically on small screens */
-        align-items: center;
-    }
 
-    .produto-card {
-        width: 90%; /* Make cards take up more width on small screens */
-        max-width: 300px; /* Prevent them from getting too wide on tablets */
-    }
+
+.footer-container {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  flex-wrap: wrap;
+
+  gap: 30px;
+
+  border-top: 2px solid #fce7d2;
+
+  border-bottom: 2px solid #fce7d2;
+
+  padding-top: 20px;
+
+  padding-bottom: 20px;
+
 }
 
-@media (min-width: 769px) and (max-width: 1024px) {
-    .produto-card {
-        width: 220px; /* Adjust width for medium screens to fit more */
-    }
+
+
+.footer-left,
+
+.footer-center,
+
+.footer-right {
+
+  flex: 1;
+
+  min-width: 250px;
+
+}
+
+
+
+.footer-left h3 {
+
+  margin: 0;
+
+  font-size: 1.5em;
+
+}
+
+
+
+.footer-left p,
+
+.footer-center p,
+
+.footer-right p {
+
+  margin: 10px 0;
+
+}
+
+
+
+/* BOTÕES DO RODAPÉ */
+
+.footer-container .pedido-btn {
+
+  background-color: #3a1f1a;
+
+  color: #fce7d2;
+
+  border: 1px solid #fce7d2;
+
+  padding: 10px 18px;
+
+  font-size: 0.95em;
+
+  border-radius: 8px;
+
+  margin-top: 10px;
+
+  margin-right: 10px;
+
+  cursor: pointer;
+
+  transition: all 0.3s ease;
+
+  text-decoration: none;
+
+}
+
+
+
+.footer-container .pedido-btn:hover {
+
+  background-color: #fce7d2;
+
+  color: #3a1f1a;
+
+}
+
+
+
+/* RESPONSIVIDADE SIMPLES */
+
+@media (max-width: 600px) {
+
+  .produtos {
+
+    flex-direction: column;
+
+    align-items: center;
+
+  }
+
+
+
+  .produto {
+
+    width: 90%;
+
+  }
+
+
+
+  .footer-container {
+
+    flex-direction: column;
+
+    align-items: center;
+
+    text-align: center;
+
+  }
+
+
+
+  .footer-container .pedido-btn {
+
+    margin: 10px auto;
+
+  }
+
 }
