@@ -60,7 +60,7 @@
       padding: 0.7rem 1.5rem;
       border-radius: 8px;
       cursor: pointer;
-      transition: background-color 0.3s;
+      font-size: 1rem;
     }
 
     .pedido-btn:hover {
@@ -208,7 +208,7 @@
         salvarProduto(novoProduto);
         carregarLista();
         document.getElementById("formProduto").reset();
-        document.querySelector("button[type='submit']").disabled = false;
+        document.querySelector("button[type='submit']").disabled = false; // Garante botão habilitado
       };
       reader.readAsDataURL(imagemArquivo);
     });
