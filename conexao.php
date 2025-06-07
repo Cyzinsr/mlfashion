@@ -2,7 +2,7 @@
 $host = "localhost";
 $db   = "mlfashion";
 $user = "root";      // ajuste aqui
-$pass = "TR7_samuka";        // ajuste aqui
+$pass = "";        // ajuste aqui
 
 try {
   $pdo = new PDO("mysql:host=$host;dbname=$db;charset=utf8", $user, $pass);
