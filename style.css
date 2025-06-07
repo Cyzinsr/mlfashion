@@ -85,9 +85,9 @@ body {
 
 /* BOTÕES GERAIS */
 .pedido-btn {
-  background-color: #3a1f1a;
-  color: #fce7d2;
-  border: 2px solid #fce7d2;
+  background-color: #fce7d2;
+  color: #3a1f1a;
+  border: 2px solid #3a1f1a;
   padding: 10px 20px;
   font-size: 1em;
   cursor: pointer;
@@ -99,8 +99,14 @@ body {
 }
 
 .pedido-btn:hover {
-  background-color: #fce7d2;
-  color: #3a1f1a;
+  background-color: #3a1f1a;
+  color: #fce7d2;
+}
+
+.pedido-titulo {
+  font-weight: bold;
+  margin-bottom: 10px;
+  font-size: 1.1em;
 }
 
 /* RODAPÉ */
@@ -123,9 +129,18 @@ footer {
 
 .footer-left,
 .footer-center,
-.footer-right {
+.footer-right,
+.footer-button {
   flex: 1;
   min-width: 250px;
+}
+
+.footer-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
 .footer-left h3 {
@@ -156,7 +171,7 @@ footer {
     text-align: center;
   }
 
-  .footer-container .pedido-btn {
-    margin: 10px 0;
+  .footer-button {
+    margin: 20px 0;
   }
 }
