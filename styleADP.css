@@ -31,12 +31,6 @@ form {
   margin-bottom: 1rem;
 }
 
-form label {
-  display: block;
-  margin-bottom: 0.5rem;
-  font-weight: bold;
-}
-
 form input {
   width: 100%;
   padding: 0.5rem;
@@ -53,14 +47,14 @@ form input {
   border-radius: 8px;
   cursor: pointer;
   font-size: 1rem;
+  transition: background-color 0.3s ease;
 }
 
 .pedido-btn:hover {
   background-color: #5a3e28;
-  color: white;
 }
 
-/* Busca */
+/* Campo de busca */
 #buscaProduto {
   width: 100%;
   padding: 0.5rem;
@@ -69,14 +63,15 @@ form input {
   border-radius: 5px;
 }
 
-/* Produtos em grid */
+/* Lista de produtos em grid */
 #listaProdutos {
   display: flex;
   flex-wrap: wrap;
   gap: 15px;
+  justify-content: flex-start;
 }
 
-.produto-item {
+.produto {
   background-color: #f8eee7;
   border: 1px solid #ccc;
   border-radius: 8px;
@@ -86,9 +81,10 @@ form input {
   flex-direction: column;
   align-items: center;
   position: relative;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 
-.produto-item img {
+.produto img {
   width: 100%;
   height: 150px;
   object-fit: cover;
@@ -96,56 +92,39 @@ form input {
   margin-bottom: 10px;
 }
 
-.produto-info {
+.produto h3 {
+  margin: 0;
+  font-size: 1.1rem;
   text-align: center;
-  margin-bottom: 10px;
+}
+
+.produto p {
   font-weight: bold;
-  min-height: 55px;
-}
-
-.btn-group {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  width: 100%;
-}
-
-.btn-editar {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 8px 0;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 0.9rem;
-  width: 100%;
-}
-
-.btn-editar:hover {
-  background-color: #0056b3;
-}
-
-.btn-excluir {
-  background-color: #c0392b;
-  color: white;
-  border: none;
-  padding: 8px 0;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 0.9rem;
-  width: 100%;
-}
-
-.btn-excluir:hover {
-  background-color: #a93226;
-}
-
-.nav-button {
+  margin: 5px 0;
   text-align: center;
-  margin-top: 2rem;
 }
 
-/* Modal */
+/* Rodapé */
+footer {
+  background-color: #3a1f1a;
+  color: #fce7d2;
+  padding: 1.5rem 1rem;
+}
+
+.footer-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.footer-left,
+.footer-center,
+.footer-right {
+  flex: 1 1 250px;
+}
+
+/* Modal (se usado em edição) */
 #modalEditar {
   display: none;
   position: fixed;
@@ -162,7 +141,6 @@ form input {
   border-radius: 10px;
   width: 320px;
   box-shadow: 0 0 15px rgba(0,0,0,0.3);
-  position: relative;
 }
 
 #modalEditar label {
@@ -186,13 +164,13 @@ form input {
   border-radius: 5px;
 }
 
-#modalEditar .modal-buttons {
+.modal-buttons {
   margin-top: 15px;
   display: flex;
   justify-content: space-between;
 }
 
-#modalEditar button {
+.modal-buttons button {
   padding: 8px 15px;
   border-radius: 8px;
   border: none;
@@ -201,20 +179,37 @@ form input {
   font-size: 1rem;
 }
 
-#modalEditar .btn-salvar {
+.btn-salvar {
   background-color: #28a745;
   color: white;
 }
 
-#modalEditar .btn-cancelar {
+.btn-cancelar {
   background-color: #c0392b;
   color: white;
 }
 
-#modalEditar .btn-salvar:hover {
+.btn-salvar:hover {
   background-color: #218838;
 }
 
-#modalEditar .btn-cancelar:hover {
+.btn-cancelar:hover {
   background-color: #a93226;
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+  .footer-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #listaProdutos {
+    justify-content: center;
+  }
+
+  .produto {
+    width: 100%;
+    max-width: 300px;
+  }
 }
