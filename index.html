@@ -1,51 +1,64 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ML Fashion - Catálogo</title>
-  <link rel="stylesheet" href="estilo.css" />
+  <title>ML Fashion</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header class="topo">
     <div class="logo">
       <h1>ML Fashion</h1>
-      <p>Moda e estilo para você</p>
+      <p>Moda feminina cristã e casual</p>
     </div>
   </header>
 
-  <main class="main-content">
+  <div class="main-content">
     <section class="catalogo">
-      <h2>Catálogo de Produtos</h2>
-
-      <!-- Formulário para adicionar produto -->
-      <form id="formProduto" enctype="multipart/form-data">
-        <input type="text" id="nome" name="nome" placeholder="Nome do Produto" required />
-        <input type="text" id="preco" name="preco" placeholder="Preço (ex: R$ 199,99)" required />
-        <input type="file" id="imagemArquivo" name="imagemArquivo" accept="image/*" required />
-        <button type="submit" class="pedido-btn">Adicionar Produto</button>
-      </form>
-
-      <!-- Busca -->
-      <input type="text" id="buscaProduto" placeholder="Buscar produtos..." style="margin: 20px 0; padding: 10px; width: 100%; max-width: 400px;" />
-
-      <!-- Lista de produtos -->
-      <div id="listaProdutos" class="produtos"></div>
+      <h2>Brilhe com ML Fashion!</h2>
+      <div class="produtos">
+        <div class="produto">
+          <img src="img/produto1.jpg" alt="Anel Poderosa" />
+          <h3>Anel Poderosa</h3>
+          <p>R$109,00</p>
+        </div>
+        <div class="produto">
+          <img src="img/produto2.jpg" alt="Conjunto Diva" />
+          <h3>Conjunto Diva</h3>
+          <p>R$109,00</p>
+        </div>
+        <div class="produto">
+          <img src="img/produto3.jpg" alt="Colar Medalhão" />
+          <h3>Colar Medalhão</h3>
+          <p>R$109,00</p>
+        </div>
+      </div>
     </section>
-  </main>
+  </div>
 
   <footer>
     <div class="footer-container">
       <div class="footer-left">
         <h3>ML Fashion</h3>
-        <p>Moda e estilo para você.</p>
+        <p>Moda Feminina cristã e casual</p>
       </div>
+
       <div class="footer-center">
-        <p>Contato: contato@mlfashion.com</p>
-        <p>Telefone: (27) 99999-9999</p>
+        <p>Rua Muqui do Norte, 1182 - Barramares<br />Vila Velha - ES</p>
       </div>
+
+      <div>
+        <p>FAÇA SEU PEDIDO!</p>
+        <button onclick="window.location.href='file:///C:/Users/s.vitoria/Desktop/sla/novos%20produtos.html'">
+          ADICIONAR PRODUTO
+        </button>
+      </div>
+
       <div class="footer-right">
-        <p>© 2025 ML Fashion. Todos os direitos reservados.</p>
+        <p>Contato: 27 99913-4960</p>
+        <p>Redes sociais: @ml.fashion.33</p>
+        <p>Site: grandesite.com.br</p>
       </div>
     </div>
   </footer>
