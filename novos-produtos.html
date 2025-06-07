@@ -19,15 +19,20 @@
       <h2>Catálogo de Produtos</h2>
 
       <!-- Formulário para adicionar produto -->
-      <form id="formProduto" enctype="multipart/form-data">
+      <form id="formProduto" method="POST" enctype="multipart/form-data">
         <input type="text" id="nome" name="nome" placeholder="Nome do Produto" required />
         <input type="text" id="preco" name="preco" placeholder="Preço (ex: R$ 199,99)" required />
         <input type="file" id="imagemArquivo" name="imagemArquivo" accept="image/*" required />
         <button type="submit" class="pedido-btn">Adicionar Produto</button>
       </form>
 
-      <!-- Busca -->
-      <input type="text" id="buscaProduto" placeholder="Buscar produtos..." style="margin: 20px 0; padding: 10px; width: 100%; max-width: 400px;" />
+      <!-- Campo de busca -->
+      <input 
+        type="text" 
+        id="buscaProduto" 
+        placeholder="Buscar produtos..." 
+        style="margin: 20px 0; padding: 10px; width: 100%; max-width: 400px;" 
+      />
 
       <!-- Lista de produtos -->
       <div id="listaProdutos" class="produtos"></div>
@@ -49,98 +54,97 @@
       </div>
     </div>
   </footer>
-<script>
-  // Formatação do preço (igual seu código)
-  function formatarPrecoInput(input) {
-    input.addEventListener("input", function () {
-      let valor = this.value.replace(/\D/g, "");
-      if (!valor) {
-        this.value = "";
-        return;
+
+  <script>
+    // Formatação do preço
+    function formatarPrecoInput(input) {
+      input.addEventListener("input", function () {
+        let valor = this.value.replace(/\D/g, "");
+        if (!valor) {
+          this.value = "";
+          return;
+        }
+        valor = String(Number(valor));
+        while (valor.length < 3) {
+          valor = "0" + valor;
+        }
+        let inteiro = valor.slice(0, -2);
+        let centavos = valor.slice(-2);
+        inteiro = inteiro.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        this.value = `R$ ${inteiro},${centavos}`;
+      });
+    }
+
+    const precoInput = document.getElementById("preco");
+    formatarPrecoInput(precoInput);
+
+    // Carregar produtos do banco
+    async function carregarLista(filtrar = "") {
+      const lista = document.getElementById("listaProdutos");
+      lista.innerHTML = "Carregando produtos...";
+
+      try {
+        const response = await fetch(`buscar_produtos.php?busca=${encodeURIComponent(filtrar)}`);
+        const produtos = await response.json();
+
+        lista.innerHTML = "";
+
+        if (!produtos.length) {
+          lista.innerHTML = "<p>Nenhum produto encontrado.</p>";
+          return;
+        }
+
+        produtos.forEach(produto => {
+          const item = document.createElement("div");
+          item.className = "produto";
+
+          item.innerHTML = `
+            <img src="${produto.imagem_url}" alt="${produto.nome}" />
+            <h3>${produto.nome}</h3>
+            <p>${produto.preco}</p>
+          `;
+
+          lista.appendChild(item);
+        });
+      } catch (error) {
+        lista.innerHTML = "<p>Erro ao carregar produtos.</p>";
+        console.error(error);
       }
-      valor = String(Number(valor));
-      while (valor.length < 3) {
-        valor = "0" + valor;
+    }
+
+    // Envio do formulário
+    document.getElementById("formProduto").addEventListener("submit", async function (e) {
+      e.preventDefault();
+      const formData = new FormData(this);
+
+      try {
+        const response = await fetch('inserir_produto.php', {
+          method: 'POST',
+          body: formData
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+          alert('Produto adicionado com sucesso!');
+          this.reset();
+          carregarLista();
+        } else {
+          alert('Erro: ' + result.message);
+        }
+      } catch (error) {
+        alert('Erro ao enviar os dados.');
+        console.error(error);
       }
-      let inteiro = valor.slice(0, -2);
-      let centavos = valor.slice(-2);
-      inteiro = inteiro.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-      this.value = `R$ ${inteiro},${centavos}`;
     });
-  }
 
-  const precoInput = document.getElementById("preco");
-  formatarPrecoInput(precoInput);
+    // Filtro ao digitar
+    document.getElementById("buscaProduto").addEventListener("input", function () {
+      carregarLista(this.value);
+    });
 
-  // Função para carregar produtos do PHP
-  async function carregarLista(filtrar = "") {
-    const lista = document.getElementById("listaProdutos");
-    lista.innerHTML = "Carregando produtos...";
-
-    try {
-      const response = await fetch(`buscar_produtos.php?busca=${encodeURIComponent(filtrar)}`);
-      const produtos = await response.json();
-
-      lista.innerHTML = "";
-
-      if(produtos.length === 0) {
-        lista.innerHTML = "<p>Nenhum produto encontrado.</p>";
-        return;
-      }
-
-      produtos.forEach(produto => {
-        const item = document.createElement("div");
-        item.className = "produto";
-
-        item.innerHTML = `
-          <img src="${produto.imagem_url}" alt="${produto.nome}" />
-          <h3>${produto.nome}</h3>
-          <p>${produto.preco}</p>
-        `;
-
-        lista.appendChild(item);
-      });
-    } catch (error) {
-      lista.innerHTML = "<p>Erro ao carregar produtos.</p>";
-      console.error(error);
-    }
-  }
-
-  // Evento do formulário para enviar produto ao PHP
-  document.getElementById("formProduto").addEventListener("submit", async function(e) {
-    e.preventDefault();
-
-    const formData = new FormData(this);
-
-    try {
-      const response = await fetch('inserir_produto.php', {
-        method: 'POST',
-        body: formData
-      });
-
-      const result = await response.json();
-
-      if(result.success) {
-        alert('Produto adicionado com sucesso!');
-        this.reset();
-        carregarLista();
-      } else {
-        alert('Erro: ' + result.message);
-      }
-    } catch (error) {
-      alert('Erro ao enviar dados.');
-      console.error(error);
-    }
-  });
-
-  // Pesquisa dinâmica
-  document.getElementById("buscaProduto").addEventListener("input", function() {
-    carregarLista(this.value);
-  });
-
-  // Carregar produtos ao abrir página
-  window.onload = () => carregarLista();
-
-</script>
+    // Carregar na abertura
+    window.onload = () => carregarLista();
+  </script>
 </body>
 </html>
