@@ -1,8 +1,8 @@
 <?php
 $host = "localhost";
 $db   = "mlfashion";
-$user = "seu_usuario";      // ajuste aqui
-$pass = "sua_senha";        // ajuste aqui
+$user = "root";      // ajuste aqui
+$pass = "TR7_samuka";        // ajuste aqui
 
 try {
   $pdo = new PDO("mysql:host=$host;dbname=$db;charset=utf8", $user, $pass);
