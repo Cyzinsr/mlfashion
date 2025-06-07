@@ -1,34 +1,24 @@
 <?php
 header('Content-Type: application/json');
-
 $host = "localhost";
+$dbname = "mlfashion";
 $user = "root";
 $pass = "";
-$dbname = "mlfashion";
 
-$conn = new mysqli($host, $user, $pass, $dbname);
-if ($conn->connect_error) {
+try {
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $user, $pass);
+} catch (PDOException $e) {
     echo json_encode([]);
     exit;
 }
 
-$sql = "SELECT id, nome, preco, imagem FROM produtos ORDER BY id DESC";
-$result = $conn->query($sql);
+$stmt = $pdo->query("SELECT id, nome, preco, imagem FROM produtos ORDER BY id DESC");
+$produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-$produtos = [];
-if ($result->num_rows > 0) {
-    while($row = $result->fetch_assoc()) {
-        $precoFormatado = 'R$ ' . number_format($row['preco'], 2, ',', '.');
-
-        $produtos[] = [
-            'id' => $row['id'],
-            'nome' => $row['nome'],
-            'preco' => $precoFormatado,
-            'imagem' => $row['imagem']
-        ];
-    }
+foreach ($produtos as &$produto) {
+    $produto['preco'] = "R$ " . number_format($produto['preco'], 2, ',', '.');
+    $produto['imagem_url'] = 'uploads/' . $produto['imagem'];
 }
-$conn->close();
 
 echo json_encode($produtos);
 ?>
