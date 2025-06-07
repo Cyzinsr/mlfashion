@@ -3,7 +3,7 @@ header('Content-Type: application/json');
 
 $host = "localhost";
 $user = "root";      // ajuste aqui seu usuário MySQL
-$pass = "";          // ajuste aqui sua senha MySQL
+$pass = "TR7_samuka";          // ajuste aqui sua senha MySQL
 $dbname = "mlfashion";
 
 $conn = new mysqli($host, $user, $pass, $dbname);
