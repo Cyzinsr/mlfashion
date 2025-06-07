@@ -1,64 +1,65 @@
 <?php
 header('Content-Type: application/json');
-
 $host = "localhost";
-$user = "root";      // ajuste aqui seu usuário MySQL
-$pass = "TR7_samuka";          // ajuste aqui sua senha MySQL
 $dbname = "mlfashion";
+$user = "root";   // Ajuste seu usuário MySQL
+$pass = "";       // Ajuste sua senha MySQL
 
-$conn = new mysqli($host, $user, $pass, $dbname);
-if ($conn->connect_error) {
-    echo json_encode(['success' => false, 'error' => 'Erro na conexão: ' . $conn->connect_error]);
+// Conexão PDO
+try {
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $user, $pass);
+} catch (PDOException $e) {
+    echo json_encode(['sucesso' => false, 'mensagem' => "Erro ao conectar ao banco de dados: " . $e->getMessage()]);
     exit;
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $nome = $_POST['nome'] ?? '';
-    $preco = $_POST['preco'] ?? '';
+    $nome = filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_STRING);
+    $preco = filter_input(INPUT_POST, 'preco', FILTER_SANITIZE_STRING);
+    $preco = str_replace(['R$', '.', ' '], '', $preco); // Remover R$, pontos e espaços
+    $preco = str_replace(',', '.', $preco); // Trocar vírgula por ponto
+    $preco = floatval($preco);
 
-    if (empty($nome) || empty($preco)) {
-        echo json_encode(['success' => false, 'error' => 'Nome e preço são obrigatórios.']);
+    if (!$nome || !$preco || !isset($_FILES['imagemArquivo'])) {
+        echo json_encode(['sucesso' => false, 'mensagem' => 'Dados incompletos']);
         exit;
     }
 
-    if (isset($_FILES['imagemArquivo']) && $_FILES['imagemArquivo']['error'] === UPLOAD_ERR_OK) {
-        $imagem = $_FILES['imagemArquivo'];
-        $uploadDir = 'uploads/';
-        if (!is_dir($uploadDir)) {
-            mkdir($uploadDir, 0755, true);
-        }
+    // Upload da imagem
+    $extensoesPermitidas = ['jpg', 'jpeg', 'png', 'gif'];
+    $arquivo = $_FILES['imagemArquivo'];
+    $ext = strtolower(pathinfo($arquivo['name'], PATHINFO_EXTENSION));
 
-        $ext = pathinfo($imagem['name'], PATHINFO_EXTENSION);
-        $novoNome = uniqid('img_') . '.' . $ext;
-        $uploadFile = $uploadDir . $novoNome;
+    if (!in_array($ext, $extensoesPermitidas)) {
+        echo json_encode(['sucesso' => false, 'mensagem' => 'Extensão de imagem não permitida']);
+        exit;
+    }
 
-        if (move_uploaded_file($imagem['tmp_name'], $uploadFile)) {
-            $precoNumerico = str_replace(['R$', '.', ' '], '', $preco);
-            $precoNumerico = str_replace(',', '.', $precoNumerico);
+    $pastaUploads = 'uploads/';
+    if (!is_dir($pastaUploads)) {
+        mkdir($pastaUploads, 0755, true);
+    }
 
-            $stmt = $conn->prepare("INSERT INTO produtos (nome, preco, imagem) VALUES (?, ?, ?)");
-            if ($stmt === false) {
-                echo json_encode(['success' => false, 'error' => 'Erro na query: ' . $conn->error]);
-                exit;
-            }
-            $stmt->bind_param("sds", $nome, $precoNumerico, $uploadFile);
-            $executou = $stmt->execute();
+    $nomeArquivo = uniqid() . "." . $ext;
+    $caminhoCompleto = $pastaUploads . $nomeArquivo;
 
-            if ($executou) {
-                echo json_encode(['success' => true]);
-            } else {
-                echo json_encode(['success' => false, 'error' => 'Erro ao salvar no banco: ' . $stmt->error]);
-            }
-            $stmt->close();
-        } else {
-            echo json_encode(['success' => false, 'error' => 'Falha ao mover arquivo.']);
-        }
+    if (!move_uploaded_file($arquivo['tmp_name'], $caminhoCompleto)) {
+        echo json_encode(['sucesso' => false, 'mensagem' => 'Erro ao enviar a imagem']);
+        exit;
+    }
+
+    // Inserir no banco
+    $stmt = $pdo->prepare("INSERT INTO produtos (nome, preco, imagem) VALUES (:nome, :preco, :imagem)");
+    $stmt->bindValue(':nome', $nome);
+    $stmt->bindValue(':preco', $preco);
+    $stmt->bindValue(':imagem', $nomeArquivo);
+
+    if ($stmt->execute()) {
+        echo json_encode(['sucesso' => true]);
     } else {
-        echo json_encode(['success' => false, 'error' => 'Imagem não enviada ou inválida.']);
+        echo json_encode(['sucesso' => false, 'mensagem' => 'Erro ao salvar no banco']);
     }
 } else {
-    echo json_encode(['success' => false, 'error' => 'Método inválido.']);
+    echo json_encode(['sucesso' => false, 'mensagem' => 'Método não permitido']);
 }
-
-$conn->close();
 ?>
